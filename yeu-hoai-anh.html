@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Yêu Hoài Anh</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle, #ffe6f0, #ffb3d9);
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        height: 320px;
+    }
+
+    /* Trái tim */
+    .heart {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        width: 130px;
+        height: 130px;
+        background: red;
+        box-shadow: 0 0 30px rgba(255,0,0,0.6);
+        animation: pulse 1.2s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 130px;
+        height: 130px;
+        background: red;
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -65px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: 65px;
+        top: 0;
+    }
+
+    @keyframes pulse {
+        0%,100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+        50% { transform: translate(-50%, -50%) rotate(-45deg) scale(1.1); }
+    }
+
+    /* Chữ quay */
+    .orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 260px;
+        height: 260px;
+        margin-left: -130px;
+        margin-top: -130px;
+        border-radius: 50%;
+        animation: spin 8s linear infinite;
+    }
+
+    .orbit span {
+        position: absolute;
+        left: 50%;
+        top: -12px;
+        transform: translateX(-50%);
+        font-size: 18px;
+        font-weight: bold;
+        color: #c8004a;
+        text-shadow: 0 0 6px white;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* Tim rơi */
+    .falling-heart {
+        position: fixed;
+        top: -10px;
+        font-size: 20px;
+        animation: fall linear infinite;
+        color: #ff3366;
+        pointer-events: none;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Nhạc nền -->
+<audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/13/audio_1e3e70ef9b.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <div class="heart"></div>
+
+    <div class="orbit">
+        <span>💖 Yêu Hoài Anh 💖</span>
+    </div>
+
+    <div class="orbit" style="animation-duration: 12s;">
+        <span>💗 Mãi Bên Nhau 💗</span>
+    </div>
+
+    <div class="orbit" style="animation-duration: 16s;">
+        <span>❤️ Thương Hoài Anh Nhất ❤️</span>
+    </div>
+</div>
+
+<script>
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "falling-heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
